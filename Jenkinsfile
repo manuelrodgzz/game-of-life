@@ -5,6 +5,12 @@ pipeline{
     }
     agent none //set to none if multiple agents will be used
     stages{
+        stage('Checkout'){
+            agent any
+            steps{
+                git 'https://github.com/manuelrodgzz/game-of-life'
+            }
+        }
         stage('Compile'){
             agent any
             steps{
@@ -24,7 +30,7 @@ pipeline{
             }
         }
         stage('Package'){
-            agent any
+            agent {label 'win_slave'}
             steps{
                 git 'https://github.com/manuelrodgzz/game-of-life'
                 bat 'mvn package' //windows uses bat, not sh
