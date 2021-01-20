@@ -3,7 +3,7 @@ pipeline{
         jdk 'java 8 openjdk'
         maven 'maven'
     }
-    agent none //set to none if multiple agents will be used
+    agent none
     stages{
         stage('Compile'){
             agent any
@@ -17,7 +17,6 @@ pipeline{
                 sh 'mvn test'
             }
             post{
-                //create user friendly reports
                 always{
                     junit 'gameoflife-web/target/surefire-reports/*.xml'
                 }
@@ -27,7 +26,7 @@ pipeline{
             agent {label: 'win_slave'}
             steps{
                 git 'https://github.com/manuelrodgzz/game-of-life'
-                bat 'mvn package' //windows uses bat, not sh
+                bat 'mvn package'
             }
         }
     }
