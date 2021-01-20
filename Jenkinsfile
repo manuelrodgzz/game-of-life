@@ -24,7 +24,7 @@ pipeline{
             }
         }
         stage('Package'){
-            agent {label: 'win_slave'}
+            agent any
             steps{
                 git 'https://github.com/manuelrodgzz/game-of-life'
                 bat 'mvn package' //windows uses bat, not sh
